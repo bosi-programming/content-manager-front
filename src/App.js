@@ -1,7 +1,20 @@
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+
+import PostEditor from './components/PostEditor';
+
 function App() {
+  const [ postState, setPostState ] = useState('');
+  const [ postHtmlState, setPostHtmlState ] = useState('');
+
+  const setPost = (post) => {
+    setPostState(post);
+    setPostHtmlState(draftToHtml(convertToRaw(post.getCurrentContent())));
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +31,8 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <PostEditor postState={postState} setPostState={setPost} />
     </div>
   );
 }
