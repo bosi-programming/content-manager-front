@@ -1,18 +1,14 @@
 import React from "react";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import EditorScreen from "./screens/EditorScreen";
+import Router from "./Router";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/editor">
-          <EditorScreen />
-        </Route>
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
 
