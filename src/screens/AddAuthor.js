@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Typography, Button, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import constants from "../constants";
@@ -42,29 +41,33 @@ const useStyles = makeStyles({
   },
 });
 
-const Login = () => {
+const AddAuthor = () => {
   const classes = useStyles();
-  const history = useHistory();
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [abreviation, setAbreviation] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
     const dataToSend = {
-      userName,
-      password,
+      firstName,
+      lastName,
+      abreviation,
     };
-    fetch(`${constants.baseUrl}/login`, {
+    fetch(`${constants.baseUrl}/author`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-access-token": token,
       },
       body: JSON.stringify(dataToSend),
     })
       .then((res) => res.json())
       .then((data) => {
-        localStorage.setItem("token", data.token);
-        history.push("/");
+        console.log(data);
       })
       .catch((e) => {
         console.log(e);
@@ -74,21 +77,22 @@ const Login = () => {
   return (
     <div className={classes.content}>
       <form className={classes.formInnerContainer} onSubmit={handleSubmit}>
-        <div className={classes.welcomeContainer}>
-          <Typography className={classes.welcomeText} component="span">
-            Welcome!
-          </Typography>
-        </div>
         <TextField
-          onChange={(e) => setUserName(e.target.value)}
-          label="Usuário"
-          name="userName"
+          onChange={(e) => setFirstName(e.target.value)}
+          label="First Name"
+          name="firstName"
+          required
         />
         <TextField
-          onChange={(e) => setPassword(e.target.value)}
-          label="Password"
-          name="password"
-          type="password"
+          onChange={(e) => setLastName(e.target.value)}
+          label="Last Name"
+          name="lastName"
+          required
+        />
+        <TextField
+          onChange={(e) => setAbreviation(e.target.value)}
+          label="Abreviation"
+          name="abreviation"
         />
         <Button
           className={classes.button}
@@ -96,19 +100,11 @@ const Login = () => {
           type="submit"
           variant="contained"
         >
-          Sign in
-        </Button>
-        <Button
-          onClick={() => history.push("/signup")}
-          className={classes.signup}
-          color="secondary"
-          variant="contained"
-        >
-          Sign up
+          Add New Author
         </Button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default AddAuthor;

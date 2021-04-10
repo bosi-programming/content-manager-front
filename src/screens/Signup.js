@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Typography, Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -44,17 +43,20 @@ const useStyles = makeStyles({
 
 const Login = () => {
   const classes = useStyles();
-  const history = useHistory();
   const [userName, setUserName] = useState("");
+  const [authorName, setAuthorName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataToSend = {
       userName,
+      authorName,
+      role: 'MAIN',
+      mainAccount: userName,
       password,
     };
-    fetch(`${constants.baseUrl}/login`, {
+    fetch(`${constants.baseUrl}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,8 +65,7 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        localStorage.setItem("token", data.token);
-        history.push("/");
+        console.log(data);
       })
       .catch((e) => {
         console.log(e);
@@ -85,6 +86,11 @@ const Login = () => {
           name="userName"
         />
         <TextField
+          onChange={(e) => setAuthorName(e.target.value)}
+          label="Nome ou pseudonimo"
+          name="authorName"
+        />
+        <TextField
           onChange={(e) => setPassword(e.target.value)}
           label="Password"
           name="password"
@@ -96,14 +102,6 @@ const Login = () => {
           type="submit"
           variant="contained"
         >
-          Sign in
-        </Button>
-        <Button
-          onClick={() => history.push("/signup")}
-          className={classes.signup}
-          color="secondary"
-          variant="contained"
-        >
           Sign up
         </Button>
       </form>
@@ -112,3 +110,4 @@ const Login = () => {
 };
 
 export default Login;
+
