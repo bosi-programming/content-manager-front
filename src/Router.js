@@ -10,6 +10,8 @@ import EditorScreen from "./screens/EditorScreen";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import AddImage from "./screens/AddImage";
+import Authors from "./screens/Authors";
+import Medias from "./screens/Medias";
 import AddAuthor from "./screens/AddAuthor";
 import AddMedia from "./screens/AddMedia";
 import AddQuote from "./screens/AddQuote";
@@ -90,8 +92,14 @@ function Router() {
           <Route path="/author/add">
             <AddAuthor />
           </Route>
+          <Route path="/author">
+            <Authors />
+          </Route>
           <Route path="/media/add">
             <AddMedia />
+          </Route>
+          <Route path="/media">
+            <Medias />
           </Route>
           <Route path="/quote/add">
             <AddQuote />
