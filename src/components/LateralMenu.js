@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
@@ -10,11 +10,10 @@ const useStyles = makeStyles({
     padding: 32,
     borderRight: "1px solid grey",
   },
-  link: {
-    textDecoration: "none",
-  },
   linkText: {
     color: "black",
+    cursor: "pointer",
+    marginBottom: 32,
     "&:hover": {
       transform: "scale(1.2)",
       transformOrigin: "0 50%",
@@ -22,15 +21,43 @@ const useStyles = makeStyles({
   },
 });
 const LateralMenu = () => {
+  const history = useHistory();
   const classes = useStyles();
 
   return (
     <div className={classes.menu}>
-      <Link className={classes.link} to="/image">
-        <Typography className={classes.linkText} variant="h4" gutterBottom>
-          Image
-        </Typography>
-      </Link>
+      <Typography
+        className={classes.linkText}
+        variant="h4"
+        gutterBottom
+        onClick={() => history.push("/author")}
+      >
+        Author
+      </Typography>
+      <Typography
+        className={classes.linkText}
+        variant="h4"
+        gutterBottom
+        onClick={() => history.push("/media")}
+      >
+        Media
+      </Typography>
+      <Typography
+        className={classes.linkText}
+        variant="h4"
+        gutterBottom
+        onClick={() => history.push("/quote")}
+      >
+        Quote
+      </Typography>
+      <Typography
+        className={classes.linkText}
+        variant="h4"
+        gutterBottom
+        onClick={() => history.push("/image")}
+      >
+        Image
+      </Typography>
     </div>
   );
 };

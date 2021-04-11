@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "date-fns";
 import { Button, TextField } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 
+import SearchAuthor from "../components/SearchAuthor";
+import SearchMedia from "../components/SearchMedia";
 import customFetch from "../utils/customFetch";
 
 const useStyles = makeStyles({
@@ -44,6 +46,7 @@ const useStyles = makeStyles({
 });
 
 const AddQuote = () => {
+  const history = useHistory();
   const classes = useStyles();
   const [authorList, setAuthorList] = useState();
   const [mediaList, setMediaList] = useState();
@@ -82,31 +85,14 @@ const AddQuote = () => {
     };
 
     const postRes = await customFetch(url, options, body);
+    history.push("/quote");
   };
 
   return (
     <div className={classes.content}>
       <form className={classes.formInnerContainer} onSubmit={handleSubmit}>
-        <Autocomplete
-          freeSolo
-          id="author"
-          options={authorList}
-          getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-          onChange={(_, value) => setAuthorId(value._id)}
-          renderInput={(params) => (
-            <TextField {...params} label="Author" required />
-          )}
-        />
-        <Autocomplete
-          freeSolo
-          id="media"
-          options={mediaList}
-          getOptionLabel={(option) => option.mediaName}
-          onChange={(_, value) => setMediaId(value._id)}
-          renderInput={(params) => (
-            <TextField {...params} label="Media name" required />
-          )}
-        />
+        <SearchAuthor authorList={authorList} setAuthorId={setAuthorId} />
+        <SearchMedia mediaList={mediaList} setMediaId={setMediaId} />
         <TextField
           onChange={(e) => setWhere(e.target.value)}
           label="Where"

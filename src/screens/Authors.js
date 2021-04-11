@@ -9,7 +9,7 @@ import deleteResource from "../utils/deleteResource";
 
 const useStyles = makeStyles({
   wrapper: {
-    width: "calc(100% - 20vw)",
+    width: "calc(100% - 10vw)",
   },
   authorsWrapper: {
     display: "flex",

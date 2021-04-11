@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Typography, Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -44,6 +45,7 @@ const useStyles = makeStyles({
 });
 
 const AddImage = () => {
+  const history = useHistory();
   const classes = useStyles();
   const [imageName, setImageName] = useState("");
   const [image, setImage] = useState("");
@@ -66,6 +68,7 @@ const AddImage = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        history.push("/image");
       })
       .catch((e) => {
         console.log(e);
@@ -79,12 +82,19 @@ const AddImage = () => {
           withIcon={true}
           buttonText="Select a image"
           onChange={(pic) => {
-            console.log(pic[0]);
-            setImageName(pic[0].name);
-            setImage(pic[0]);
+            if (pic[0]) {
+              setImageName(pic[0].name);
+              setImage(pic[0]);
+            } else {
+              setImageName();
+              setImage();
+            }
           }}
           singleImage
-          label={imageName ? `Selected image: ${imageName}` : 'Max file size: 5mb'}
+          label={
+            imageName ? `Selected image: ${imageName}` : "Max file size: 5mb"
+          }
+          withPreview
         />
         <Button
           className={classes.button}

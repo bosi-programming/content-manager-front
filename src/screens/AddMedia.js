@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -9,13 +10,13 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
+import SearchAuthor from "../components/SearchAuthor";
 import customFetch from "../utils/customFetch";
 
 const useStyles = makeStyles({
@@ -56,6 +57,7 @@ const useStyles = makeStyles({
 });
 
 const AddMedia = () => {
+  const history = useHistory();
   const classes = useStyles();
   const [authorList, setAuthorList] = useState();
   const [authorId, setAuthorId] = useState("");
@@ -94,21 +96,13 @@ const AddMedia = () => {
     };
 
     const postRes = await customFetch(url, options, body);
+    history.push("/media");
   };
 
   return (
     <div className={classes.content}>
       <form className={classes.formInnerContainer} onSubmit={handleSubmit}>
-        <Autocomplete
-          freeSolo
-          id="author"
-          options={authorList}
-          getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-          onChange={(_, value) => setAuthorId(value._id)}
-          renderInput={(params) => (
-            <TextField {...params} label="Author" required />
-          )}
-        />
+        <SearchAuthor authorList={authorList} setAuthorId={setAuthorId} />
         <TextField
           onChange={(e) => setMediaName(e.target.value)}
           label="Media Name"

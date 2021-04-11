@@ -5,7 +5,7 @@ import ResourceCard from "./ResourceCard";
 
 const AuthorCard = ({ author, handleDelete }) => {
   return (
-    <ResourceCard handleDelete={handleDelete} id={author.id}>
+    <ResourceCard handleDelete={handleDelete} id={author._id}>
       <Typography variant="h4">{`${author.firstName} ${author.lastName}`}</Typography>
       <Typography>{author.abreviation}</Typography>
     </ResourceCard>

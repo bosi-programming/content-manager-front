@@ -12,6 +12,8 @@ import Signup from "./screens/Signup";
 import AddImage from "./screens/AddImage";
 import Authors from "./screens/Authors";
 import Medias from "./screens/Medias";
+import Quotes from "./screens/Quotes";
+import Images from "./screens/Images";
 import AddAuthor from "./screens/AddAuthor";
 import AddMedia from "./screens/AddMedia";
 import AddQuote from "./screens/AddQuote";
@@ -89,6 +91,9 @@ function Router() {
           <Route path="/image/add">
             <AddImage />
           </Route>
+          <Route path="/image">
+            <Images />
+          </Route>
           <Route path="/author/add">
             <AddAuthor />
           </Route>
@@ -103,6 +108,9 @@ function Router() {
           </Route>
           <Route path="/quote/add">
             <AddQuote />
+          </Route>
+          <Route path="/quote">
+            <Quotes />
           </Route>
           <Route path="/">
             <EditorScreen />

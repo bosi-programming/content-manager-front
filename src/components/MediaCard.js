@@ -6,7 +6,7 @@ import ResourceCard from "./ResourceCard";
 
 const MediaCard = ({ media, handleDelete }) => {
   return (
-    <ResourceCard handleDelete={handleDelete} id={media.id}>
+    <ResourceCard handleDelete={handleDelete} id={media._id}>
       <Typography variant="h4">{media.mediaName}</Typography>
       {media.publisher && (
         <Typography>

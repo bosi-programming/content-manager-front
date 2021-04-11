@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import constants from "../constants";
+import customFetch from "../utils/customFetch";
 
 const useStyles = makeStyles({
   content: {
@@ -42,36 +43,31 @@ const useStyles = makeStyles({
 });
 
 const AddAuthor = () => {
+  const history = useHistory();
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [abreviation, setAbreviation] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
-
-    const dataToSend = {
+    const url = "author";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = {
       firstName,
       lastName,
       abreviation,
     };
-    fetch(`${constants.baseUrl}/author`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token,
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+
+    const postRes = await customFetch(url, options, body);
+
+    history.push("/author");
   };
 
   return (
