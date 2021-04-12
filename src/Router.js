@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 
 import constants from "./constants";
 
@@ -10,6 +11,7 @@ import EditorScreen from "./screens/EditorScreen";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import AddImage from "./screens/AddImage";
+import Posts from "./screens/Posts";
 import Authors from "./screens/Authors";
 import Medias from "./screens/Medias";
 import Quotes from "./screens/Quotes";
@@ -28,6 +30,17 @@ const useStyles = makeStyles({
     width: "100vw",
     height: 100,
     borderBottom: "1px solid grey",
+  },
+  linkText: {
+    color: "black",
+    cursor: "pointer",
+    marginBottom: 16,
+    paddingTop: 32,
+    paddingLeft: 32,
+    "&:hover": {
+      transform: "scale(1.2)",
+      transformOrigin: "0 50%",
+    },
   },
 });
 
@@ -78,7 +91,18 @@ function Router() {
 
   return (
     <>
-      {!isOnLoginOrSignUp && <div className={classes.header} />}
+      {!isOnLoginOrSignUp && (
+        <div className={classes.header}>
+          <Typography
+            className={classes.linkText}
+            variant="h4"
+            gutterBottom
+            onClick={() => history.push("/")}
+          >
+            Home
+          </Typography>
+        </div>
+      )}
       <div className={classes.main}>
         {!isOnLoginOrSignUp && <LateralMenu />}
         <Switch>
@@ -112,8 +136,14 @@ function Router() {
           <Route path="/quote">
             <Quotes />
           </Route>
-          <Route path="/">
+          <Route path="/add">
             <EditorScreen />
+          </Route>
+          <Route path="/:id">
+            <EditorScreen />
+          </Route>
+          <Route path="/">
+            <Posts />
           </Route>
         </Switch>
       </div>

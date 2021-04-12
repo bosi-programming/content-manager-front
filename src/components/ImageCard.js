@@ -6,9 +6,9 @@ import ResourceCard from "./ResourceCard";
 
 const useStyles = makeStyles({
   content: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   image: {
     maxWidth: 300,
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ImageCard = ({ image, handleDelete }) => {
+const ImageCard = ({ image, handleDelete, handleSelect }) => {
   const classes = useStyles();
 
   const imageNameBeggining = image.imageName.split(".")[0];
@@ -31,8 +31,11 @@ const ImageCard = ({ image, handleDelete }) => {
         className={classes.image}
         src={`data:image/${imageType};base64, ${image.image}`}
         alt={image.imageName}
+        onClick={() => handleSelect(image._id)}
       />
-      <Typography className={classes.title} variant="h4">{imageNameBeggining}</Typography>
+      <Typography className={classes.title} variant="h4">
+        {imageNameBeggining}
+      </Typography>
     </ResourceCard>
   );
 };
