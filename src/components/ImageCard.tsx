@@ -19,7 +19,20 @@ const useStyles = makeStyles({
   },
 });
 
-const ImageCard = ({ image, handleDelete, handleSelect }) => {
+interface IImage {
+  _id: string;
+  userId: string;
+  imageName: string;
+  image: string;
+}
+
+interface ImageCardProps {
+  image: IImage,
+  handleDelete: (id: string) => void,
+  handleSelect:(id: string) => void,
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ image, handleDelete, handleSelect }) => {
   const classes = useStyles();
 
   const imageNameBeggining = image.imageName.split(".")[0];

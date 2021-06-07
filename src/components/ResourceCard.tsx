@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardActions,
-  IconButton,
-  CardContent,
-} from "@material-ui/core";
+import { Card, CardActions, IconButton, CardContent } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -17,7 +12,17 @@ const useStyles = makeStyles({
     flexGrow: 1,
   },
 });
-const AuthorCard = ({ children, handleDelete, id }) => {
+
+interface ResourceCardProps {
+  handleDelete: (id: string) => void;
+  id: string;
+}
+
+const ResourceCard: React.FC<ResourceCardProps> = ({
+  children,
+  handleDelete,
+  id,
+}) => {
   const classes = useStyles();
 
   return (
@@ -32,4 +37,4 @@ const AuthorCard = ({ children, handleDelete, id }) => {
   );
 };
 
-export default AuthorCard;
+export default ResourceCard;

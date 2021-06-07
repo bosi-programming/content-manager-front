@@ -7,11 +7,9 @@ import constants from "./constants";
 
 import LateralMenu from "./components/LateralMenu";
 
-import EditorScreen from "./screens/EditorScreen";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import AddImage from "./screens/AddImage";
-import Posts from "./screens/Posts";
 import Authors from "./screens/Authors";
 import Medias from "./screens/Medias";
 import Quotes from "./screens/Quotes";
@@ -20,11 +18,15 @@ import AddAuthor from "./screens/AddAuthor";
 import AddMedia from "./screens/AddMedia";
 import AddQuote from "./screens/AddQuote";
 
+type IStyle = {
+  isOnLoginOrSignUp: boolean;
+};
+
 const useStyles = makeStyles({
   main: {
     display: "flex",
-    height: ({ isOnLoginOrSignUp }) =>
-      isOnLoginOrSignUp ? "100vh" : "calc(100vh - 100px)",
+    height: (props: IStyle) =>
+      props.isOnLoginOrSignUp ? "100vh" : "calc(100vh - 100px)",
   },
   header: {
     width: "100vw",
@@ -51,7 +53,7 @@ function Router() {
   const isOnLoginOrSignUp =
     /login/.test(location.pathname) || /signup/.test(location.pathname);
 
-  const classes = useStyles(isOnLoginOrSignUp);
+  const classes = useStyles({ isOnLoginOrSignUp });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -66,7 +68,7 @@ function Router() {
             history.push("/login");
           }
         })
-        .catch((e) => {
+        .catch(() => {
           if (!isOnLoginOrSignUp && history) {
             history.push("/login");
           }
@@ -81,7 +83,7 @@ function Router() {
             history.push("/");
           }
         })
-        .catch((e) => {
+        .catch(() => {
           if (!isOnLoginOrSignUp && history) {
             history.push("/login");
           }
@@ -133,17 +135,8 @@ function Router() {
           <Route path="/quote/add">
             <AddQuote />
           </Route>
-          <Route path="/quote">
-            <Quotes />
-          </Route>
-          <Route path="/add">
-            <EditorScreen />
-          </Route>
-          <Route path="/:id">
-            <EditorScreen />
-          </Route>
           <Route path="/">
-            <Posts />
+            <Quotes />
           </Route>
         </Switch>
       </div>

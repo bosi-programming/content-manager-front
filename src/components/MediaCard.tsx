@@ -4,7 +4,30 @@ import { Typography } from "@material-ui/core";
 
 import ResourceCard from "./ResourceCard";
 
-const MediaCard = ({ media, handleDelete }) => {
+enum EnumMedia {
+  BOOK = "BOOK",
+  ARTICLE = "ARTICLE",
+  BLOGPOST = "BLOGPOST",
+  MOVIE = "MOVIE",
+  WEBVIDEO = "WEBVIDEO",
+}
+
+interface IMedia {
+  _id: string;
+  mediaName: string;
+  authorId: string;
+  publisher?: string;
+  dateOfPublication: Date;
+  typeOfMedia: EnumMedia;
+  link?: string;
+}
+
+interface MediaCardProps {
+  media: IMedia,
+  handleDelete: (id: string) => void,
+}
+
+const MediaCard: React.FC<MediaCardProps> = ({ media, handleDelete }) => {
   return (
     <ResourceCard handleDelete={handleDelete} id={media._id}>
       <Typography variant="h4">{media.mediaName}</Typography>
