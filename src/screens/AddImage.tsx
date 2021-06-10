@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Typography, Button, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+import ImageUploader from "react-images-upload";
 
 import constants from "../constants";
 
@@ -42,29 +44,33 @@ const useStyles = makeStyles({
   },
 });
 
-const Login = () => {
-  const classes = useStyles();
+const AddImage = () => {
   const history = useHistory();
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const classes = useStyles();
+  const [imageName, setImageName] = useState("");
+  const [image, setImage] = useState<string | File>("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const dataToSend = {
-      userName,
-      password,
-    };
-    fetch(`${constants.baseUrl}/login`, {
+
+    const token = localStorage.getItem("token");
+    const body = new FormData();
+    body.append("imageName", imageName);
+    body.append("image", image);
+
+    fetch(`${constants.baseUrl}/image`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataToSend),
+      headers: token
+        ? {
+            "x-access-token": token,
+          }
+        : {},
+      body,
     })
       .then((res) => res.json())
       .then((data) => {
-        localStorage.setItem("token", data.token);
-        history.push("/");
+        console.log(data);
+        history.push("/image");
       })
       .catch((e) => {
         console.log(e);
@@ -74,21 +80,23 @@ const Login = () => {
   return (
     <div className={classes.content}>
       <form className={classes.formInnerContainer} onSubmit={handleSubmit}>
-        <div className={classes.welcomeContainer}>
-          <Typography className={classes.welcomeText} component="span">
-            Welcome!
-          </Typography>
-        </div>
-        <TextField
-          onChange={(e) => setUserName(e.target.value)}
-          label="Usuário"
-          name="userName"
-        />
-        <TextField
-          onChange={(e) => setPassword(e.target.value)}
-          label="Password"
-          name="password"
-          type="password"
+        <ImageUploader
+          withIcon={true}
+          buttonText="Select a image"
+          onChange={(pic) => {
+            if (pic[0]) {
+              setImageName(pic[0].name);
+              setImage(pic[0]);
+            } else {
+              setImageName("");
+              setImage("");
+            }
+          }}
+          singleImage
+          label={
+            imageName ? `Selected image: ${imageName}` : "Max file size: 5mb"
+          }
+          withPreview
         />
         <Button
           className={classes.button}
@@ -96,19 +104,11 @@ const Login = () => {
           type="submit"
           variant="contained"
         >
-          Sign in
-        </Button>
-        <Button
-          onClick={() => history.push("/signup")}
-          className={classes.signup}
-          color="secondary"
-          variant="contained"
-        >
-          Sign up
+          Upload the image
         </Button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default AddImage;

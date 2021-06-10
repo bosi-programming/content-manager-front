@@ -1,6 +1,6 @@
 import customFetch from "./customFetch";
 
-const deleteResource = async (url, resourceId) => {
+const deleteResource = async (url: string, resourceId: string) => {
   const finalUrl = `${url}/${resourceId}`;
   const options = {
     method: "DELETE",

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import AuthorCard from "../components/AuthorCard";
+import AuthorCard, { IAuthor } from "../components/AuthorCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 const Authors = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [authors, setAuthors] = useState();
+  const [authors, setAuthors] = useState<IAuthor[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -36,7 +36,7 @@ const Authors = () => {
     fetchData();
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     deleteResource("author", id);
     const newAuthors = authors.filter((author) => author._id !== id);
     setAuthors(newAuthors);

@@ -48,8 +48,8 @@ const useStyles = makeStyles({
 const AddQuote = () => {
   const history = useHistory();
   const classes = useStyles();
-  const [authorList, setAuthorList] = useState();
-  const [mediaList, setMediaList] = useState();
+  const [authorList, setAuthorList] = useState([]);
+  const [mediaList, setMediaList] = useState([]);
   const [authorId, setAuthorId] = useState("");
   const [mediaId, setMediaId] = useState("");
   const [where, setWhere] = useState("");
@@ -67,7 +67,7 @@ const AddQuote = () => {
     fetchData();
   }, [authorId]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const url = "quote";
@@ -85,6 +85,7 @@ const AddQuote = () => {
     };
 
     const postRes = await customFetch(url, options, body);
+    console.log(postRes);
     history.push("/quote");
   };
 

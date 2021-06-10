@@ -1,13 +1,21 @@
 import constants from "../constants";
 
-const customFetch = async (url, options, body) => {
+type TOptions = {
+  headers?: HeadersInit;
+  method?: string;
+};
+const customFetch = async (
+  url: string,
+  options?: TOptions,
+  body?: any
+) => {
   const token = localStorage.getItem("token");
 
   const headers =
     options && options.headers
-      ? { ...options.headers, "x-access-token": token }
+      ? { ...options.headers, "x-access-token": token! }
       : {
-          "x-access-token": token,
+          "x-access-token": token!,
         };
 
   const response = await fetch(`${constants.baseUrl}/${url}`, {

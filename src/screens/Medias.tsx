@@ -4,7 +4,7 @@ import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SearchAuthor from "../components/SearchAuthor";
-import MediaCard from "../components/MediaCard";
+import MediaCard, { IMedia } from "../components/MediaCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
 
@@ -33,9 +33,9 @@ const useStyles = makeStyles({
 const Medias = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [authorList, setAuthorList] = useState();
+  const [authorList, setAuthorList] = useState([]);
   const [authorId, setAuthorId] = useState("");
-  const [medias, setMedias] = useState();
+  const [medias, setMedias] = useState<IMedia[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -48,7 +48,7 @@ const Medias = () => {
     fetchData();
   }, [authorId]);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     deleteResource("media", id);
     const newMedias = medias.filter((media) => media._id !== id);
     setMedias(newMedias);

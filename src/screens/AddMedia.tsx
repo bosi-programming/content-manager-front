@@ -59,11 +59,13 @@ const useStyles = makeStyles({
 const AddMedia = () => {
   const history = useHistory();
   const classes = useStyles();
-  const [authorList, setAuthorList] = useState();
+  const [authorList, setAuthorList] = useState([]);
   const [authorId, setAuthorId] = useState("");
   const [mediaName, setMediaName] = useState("");
   const [publisher, setPublisher] = useState("");
-  const [dateOfPublication, setDateOfPublication] = useState(new Date());
+  const [dateOfPublication, setDateOfPublication] = useState<
+    string | null | undefined
+  >(new Date().toString());
   const [typeOfMedia, setTypeOfMedia] = useState("");
   const [link, setLink] = useState("");
 
@@ -76,7 +78,11 @@ const AddMedia = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleDateChange = (_: any, value?: string | null) => {
+    setDateOfPublication(value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const url = "media";
@@ -96,6 +102,7 @@ const AddMedia = () => {
     };
 
     const postRes = await customFetch(url, options, body);
+    console.log(postRes);
     history.push("/media");
   };
 
@@ -119,7 +126,7 @@ const AddMedia = () => {
             id="date-of-publication"
             label="Date of publication"
             value={dateOfPublication}
-            onChange={setDateOfPublication}
+            onChange={handleDateChange}
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
@@ -130,13 +137,13 @@ const AddMedia = () => {
           label="Publisher"
           name="publisher"
         />
-        <FormControl className={classes.formControl}>
+        <FormControl>
           <InputLabel id="demo-simple-select-label">Type of media</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={typeOfMedia}
-            onChange={(e) => setTypeOfMedia(e.target.value)}
+            onChange={(e: React.ChangeEvent<{ value: unknown}>) => setTypeOfMedia(e.target.value as string)}
           >
             <MenuItem value="BOOK">Book</MenuItem>
             <MenuItem value="ARTICLE">Article</MenuItem>

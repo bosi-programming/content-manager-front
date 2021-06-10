@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface IImage {
+export interface IImage {
   _id: string;
   userId: string;
   imageName: string;

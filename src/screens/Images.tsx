@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import ImageCard from "../components/ImageCard";
+import ImageCard, { IImage } from "../components/ImageCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
 
@@ -33,8 +33,8 @@ const useStyles = makeStyles({
 const Images = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [imageName, setImageName] = useState();
-  const [images, setImages] = useState();
+  const [imageName, setImageName] = useState('');
+  const [images, setImages] = useState<IImage[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -45,10 +45,14 @@ const Images = () => {
     fetchData();
   }, [imageName]);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     deleteResource("image", id);
     const newImages = images.filter((image) => image._id !== id);
     setImages(newImages);
+  };
+
+  const handleSelect = (id: string) => {
+    console.error("Implement id routes ", id);
   };
 
   return (
@@ -73,6 +77,7 @@ const Images = () => {
           images.map((image) => (
             <ImageCard
               image={image}
+              handleSelect={handleSelect}
               handleDelete={handleDelete}
               key={image._id}
             />

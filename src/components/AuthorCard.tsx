@@ -3,7 +3,7 @@ import { Typography } from "@material-ui/core";
 
 import ResourceCard from "./ResourceCard";
 
-interface IAuthor {
+export interface IAuthor {
   _id: string;
   firstName: string;
   lastName: string;

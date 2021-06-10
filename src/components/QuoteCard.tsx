@@ -3,7 +3,7 @@ import { Typography } from "@material-ui/core";
 
 import ResourceCard from "./ResourceCard";
 
-interface IQuote {
+export interface IQuote {
   _id: string;
   authorId: string;
   mediaId: string;

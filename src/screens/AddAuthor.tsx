@@ -49,7 +49,7 @@ const AddAuthor = () => {
   const [lastName, setLastName] = useState("");
   const [abreviation, setAbreviation] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const url = "author";
@@ -66,6 +66,7 @@ const AddAuthor = () => {
     };
 
     const postRes = await customFetch(url, options, body);
+    console.log(postRes);
 
     history.push("/author");
   };

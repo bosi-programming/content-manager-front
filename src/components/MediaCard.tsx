@@ -12,7 +12,7 @@ enum EnumMedia {
   WEBVIDEO = "WEBVIDEO",
 }
 
-interface IMedia {
+export interface IMedia {
   _id: string;
   mediaName: string;
   authorId: string;
