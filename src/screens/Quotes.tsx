@@ -8,6 +8,7 @@ import SearchMedia from "../components/SearchMedia";
 import QuoteCard, { IQuote } from "../components/QuoteCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
+import {grey} from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   header: {
@@ -17,7 +18,9 @@ const useStyles = makeStyles({
     marginLeft: 16,
   },
   wrapper: {
-    width: "calc(100% - 10vw)",
+    backgroundColor: grey[200],
+    width: "calc(100% - 4vw)",
+    height: '100%',
   },
   quotesWrapper: {
     display: "flex",

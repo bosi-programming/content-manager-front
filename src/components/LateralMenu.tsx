@@ -5,10 +5,11 @@ import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   menu: {
-    height: "100vh",
-    width: "10vw",
+    width: "4vw",
     padding: 32,
     borderRight: "1px solid grey",
+    boxShadow: "3px 0px 10px grey",
+    zIndex: 999,
   },
   linkText: {
     color: "black",
@@ -19,6 +20,10 @@ const useStyles = makeStyles({
       transformOrigin: "0 50%",
     },
   },
+  emoji: {
+    marginBottom: 32,
+    textAlign: "center",
+  },
 });
 const LateralMenu = () => {
   const history = useHistory();
@@ -26,9 +31,12 @@ const LateralMenu = () => {
 
   return (
     <div className={classes.menu}>
+      <Typography className={classes.emoji} variant="h4" gutterBottom>
+        📝
+      </Typography>
       <Typography
         className={classes.linkText}
-        variant="h4"
+        variant="h6"
         gutterBottom
         onClick={() => history.push("/author")}
       >
@@ -36,7 +44,7 @@ const LateralMenu = () => {
       </Typography>
       <Typography
         className={classes.linkText}
-        variant="h4"
+        variant="h6"
         gutterBottom
         onClick={() => history.push("/media")}
       >
@@ -44,7 +52,7 @@ const LateralMenu = () => {
       </Typography>
       <Typography
         className={classes.linkText}
-        variant="h4"
+        variant="h6"
         gutterBottom
         onClick={() => history.push("/quote")}
       >
@@ -52,7 +60,7 @@ const LateralMenu = () => {
       </Typography>
       <Typography
         className={classes.linkText}
-        variant="h4"
+        variant="h6"
         gutterBottom
         onClick={() => history.push("/image")}
       >

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 
 import constants from "./constants";
 
@@ -17,10 +18,20 @@ import AddAuthor from "./screens/AddAuthor";
 import AddMedia from "./screens/AddMedia";
 import AddQuote from "./screens/AddQuote";
 
+type IStyle = {
+  isOnLoginOrSignUp: boolean;
+};
+
 const useStyles = makeStyles({
   main: {
     display: "flex",
-    height: '100vh',
+    height: (props: IStyle) =>
+      props.isOnLoginOrSignUp ? "100vh" : "calc(100vh - 100px)",
+  },
+  header: {
+    width: "100vw",
+    height: 100,
+    borderBottom: "1px solid grey",
   },
   linkText: {
     color: "black",
@@ -42,7 +53,7 @@ function Router() {
   const isOnLoginOrSignUp =
     /login/.test(location.pathname) || /signup/.test(location.pathname);
 
-  const classes = useStyles();
+  const classes = useStyles({ isOnLoginOrSignUp });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
