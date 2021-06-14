@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { Button, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SearchAuthor from "../components/SearchAuthor";
@@ -8,7 +8,7 @@ import SearchMedia from "../components/SearchMedia";
 import QuoteCard, { IQuote } from "../components/QuoteCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
-import {grey} from "@material-ui/core/colors";
+import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   header: {
@@ -16,11 +16,12 @@ const useStyles = makeStyles({
     gridGap: 40,
     gridTemplateColumns: "2fr 2fr 1fr",
     marginLeft: 16,
+    marginTop: 16,
   },
   wrapper: {
     backgroundColor: grey[200],
     width: "calc(100% - 4vw)",
-    height: '100%',
+    height: "100%",
   },
   quotesWrapper: {
     display: "flex",
@@ -28,9 +29,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   button: {
-    float: "right",
-    marginTop: 16,
-    marginRight: 16,
+    margin: 16,
   },
 });
 
@@ -75,7 +74,7 @@ const Quotes = () => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.header}>
+      <Card raised className={classes.header}>
         <SearchAuthor authorList={authorList} setAuthorId={setAuthorId} />
         <SearchMedia mediaList={mediaList} setMediaId={setMediaId} />
         <Button
@@ -86,7 +85,7 @@ const Quotes = () => {
         >
           Add new quote
         </Button>
-      </div>
+      </Card>
       <div className={classes.quotesWrapper}>
         {quotes && quotes.length > 0 ? (
           quotes.map((quote) => (

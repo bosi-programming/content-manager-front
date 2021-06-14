@@ -1,6 +1,7 @@
 import React from "react";
 import { get } from "lodash";
 import { TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 enum EnumMedia {
@@ -26,23 +27,42 @@ interface SearchMediaProps {
   setMediaId: (id: string) => void;
 }
 
+const useStyles = makeStyles({
+  search: {
+    padding: 16,
+  },
+});
+
 const SearchMedia: React.FC<SearchMediaProps> = ({ mediaList, setMediaId }) => {
+  const classes = useStyles();
   return (
     <>
       {mediaList && mediaList.length > 0 ? (
         <Autocomplete
+          classes={{ root: classes.search }}
           freeSolo
           id="media"
           options={mediaList}
           getOptionLabel={(option) => option.mediaName}
           onChange={(_, value) => setMediaId(get(value, "_id", null))}
           renderInput={(params) => (
-            <TextField {...params} label="Media name" required />
+            <TextField
+              {...params}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              label="Media name"
+              required
+            />
           )}
         />
       ) : (
         <TextField
-          label="This author has no media yet. Add a new media"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          label="Media name"
+          placeholder="This author has no media yet. Add a new media"
           disabled
         />
       )}

@@ -31,26 +31,24 @@ const SearchAuthor: React.FC<SearchAuthorProps> = ({
 }) => {
   const classes = useStyles();
   return (
-    <Card raised className={classes.card}>
-      <Autocomplete
-        classes={{ root: classes.search }}
-        freeSolo
-        id="author"
-        options={authorList}
-        getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-        onChange={(_, value) => setAuthorId(get(value, "_id", null))}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            label="Author"
-            required
-          />
-        )}
-      />
-    </Card>
+    <Autocomplete
+      classes={{ root: classes.search }}
+      freeSolo
+      id="author"
+      options={authorList}
+      getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+      onChange={(_, value) => setAuthorId(get(value, "_id", null))}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          label="Author"
+          required
+        />
+      )}
+    />
   );
 };
 

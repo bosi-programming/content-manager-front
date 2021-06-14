@@ -2,16 +2,24 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import {
+  PersonTwoTone,
+  LibraryBooksTwoTone,
+  FormatQuoteTwoTone,
+  ImageTwoTone,
+} from "@material-ui/icons";
 
 const useStyles = makeStyles({
   menu: {
-    width: "4vw",
-    padding: 32,
+    width: "5vw",
+    padding: "32px 24px",
     borderRight: "1px solid grey",
     boxShadow: "3px 0px 10px grey",
     zIndex: 999,
   },
   linkText: {
+    display: "flex",
+    alignItems: "center",
     color: "black",
     cursor: "pointer",
     marginBottom: 32,
@@ -23,6 +31,9 @@ const useStyles = makeStyles({
   emoji: {
     marginBottom: 32,
     textAlign: "center",
+  },
+  icon: {
+    marginRight: 8,
   },
 });
 const LateralMenu = () => {
@@ -40,7 +51,7 @@ const LateralMenu = () => {
         gutterBottom
         onClick={() => history.push("/author")}
       >
-        Author
+        <PersonTwoTone className={classes.icon} /> Author
       </Typography>
       <Typography
         className={classes.linkText}
@@ -48,7 +59,7 @@ const LateralMenu = () => {
         gutterBottom
         onClick={() => history.push("/media")}
       >
-        Media
+        <LibraryBooksTwoTone className={classes.icon} /> Media
       </Typography>
       <Typography
         className={classes.linkText}
@@ -56,7 +67,7 @@ const LateralMenu = () => {
         gutterBottom
         onClick={() => history.push("/quote")}
       >
-        Quote
+        <FormatQuoteTwoTone className={classes.icon} /> Quote
       </Typography>
       <Typography
         className={classes.linkText}
@@ -64,7 +75,7 @@ const LateralMenu = () => {
         gutterBottom
         onClick={() => history.push("/image")}
       >
-        Image
+        <ImageTwoTone className={classes.icon} /> Image
       </Typography>
     </div>
   );
