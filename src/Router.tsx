@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Switch, Route, useHistory, useLocation } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 
 import constants from "./constants";
+import { theme } from "./theme/theme";
 
 import LateralMenu from "./components/LateralMenu";
 
@@ -20,18 +21,7 @@ import AddQuote from "./screens/AddQuote";
 const useStyles = makeStyles({
   main: {
     display: "flex",
-    height: '100vh',
-  },
-  linkText: {
-    color: "black",
-    cursor: "pointer",
-    marginBottom: 16,
-    paddingTop: 32,
-    paddingLeft: 32,
-    "&:hover": {
-      transform: "scale(1.2)",
-      transformOrigin: "0 50%",
-    },
+    height: "100vh",
   },
 });
 
@@ -81,41 +71,43 @@ function Router() {
   }, [history, isOnLoginOrSignUp]);
 
   return (
-    <main className={classes.main}>
-      {!isOnLoginOrSignUp && <LateralMenu />}
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        <Route path="/image/add">
-          <AddImage />
-        </Route>
-        <Route path="/image">
-          <Images />
-        </Route>
-        <Route path="/author/add">
-          <AddAuthor />
-        </Route>
-        <Route path="/author">
-          <Authors />
-        </Route>
-        <Route path="/media/add">
-          <AddMedia />
-        </Route>
-        <Route path="/media">
-          <Medias />
-        </Route>
-        <Route path="/quote/add">
-          <AddQuote />
-        </Route>
-        <Route path="/">
-          <Quotes />
-        </Route>
-      </Switch>
-    </main>
+    <ThemeProvider theme={theme}>
+      <main className={classes.main}>
+        {!isOnLoginOrSignUp && <LateralMenu />}
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/image/add">
+            <AddImage />
+          </Route>
+          <Route path="/image">
+            <Images />
+          </Route>
+          <Route path="/author/add">
+            <AddAuthor />
+          </Route>
+          <Route path="/author">
+            <Authors />
+          </Route>
+          <Route path="/media/add">
+            <AddMedia />
+          </Route>
+          <Route path="/media">
+            <Medias />
+          </Route>
+          <Route path="/quote/add">
+            <AddQuote />
+          </Route>
+          <Route path="/">
+            <Quotes />
+          </Route>
+        </Switch>
+      </main>
+    </ThemeProvider>
   );
 }
 

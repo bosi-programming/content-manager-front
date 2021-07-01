@@ -8,18 +8,17 @@ import SearchMedia from "../components/SearchMedia";
 import QuoteCard, { IQuote } from "../components/QuoteCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
-import { grey } from "@material-ui/core/colors";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   header: {
     display: "grid",
-    gridGap: 40,
+    gridGap: theme.spacing(5),
     gridTemplateColumns: "2fr 2fr 1fr",
-    marginLeft: 16,
-    marginTop: 16,
+    margin: theme.spacing(2, 2, 1, 2),
+    alignItems: "center",
   },
   wrapper: {
-    backgroundColor: grey[200],
+    backgroundColor: theme.palette.backgroundColor.main,
     width: "calc(100% - 4vw)",
     height: "100%",
   },
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
   button: {
     margin: 16,
   },
-});
+}));
 
 const Quotes = () => {
   const classes = useStyles();
