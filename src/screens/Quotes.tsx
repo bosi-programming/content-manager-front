@@ -5,9 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import SearchAuthor from "../components/SearchAuthor";
 import SearchMedia from "../components/SearchMedia";
-import QuoteCard, { IQuote } from "../components/QuoteCard";
+import QuoteCard from "../components/QuoteCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
+import { useQuotesQuery } from "../requests/queries/useQuotesQuery";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -35,36 +36,27 @@ const useStyles = makeStyles((theme) => ({
 const Quotes = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [quotes, setQuotes] = useState<IQuote[]>([]);
+  const {
+    props: { quotes, authorId },
+    handlers: { onAuthorChange, onMediaChange },
+  } = useQuotesQuery();
   const [authorList, setAuthorList] = useState([]);
-  const [authorId, setAuthorId] = useState("");
   const [mediaList, setMediaList] = useState([]);
-  const [mediaId, setMediaId] = useState("");
 
   useEffect(() => {
     async function fetchData() {
-      const quotesUrl =
-        authorId || mediaId
-          ? `quote?${authorId ? `authorId=${authorId}&` : ""}${
-              mediaId ? `mediaId=${mediaId}` : ""
-            }`
-          : "quote";
       const mediaUrl = authorId ? `media?authorId=${authorId}` : "media";
 
-      const quotesData = await customFetch(quotesUrl);
       const autocompleteAuthorData = await customFetch("author");
       const autocompleteMediaData = await customFetch(mediaUrl);
       setAuthorList(autocompleteAuthorData);
       setMediaList(autocompleteMediaData);
-      setQuotes(quotesData);
     }
     fetchData();
-  }, [authorId, mediaId]);
+  }, [authorId]);
 
   const handleDelete = (id: string) => {
     deleteResource("quote", id);
-    const newQuotes = quotes.filter((quote) => quote._id !== id);
-    setQuotes(newQuotes);
   };
 
   const handleSelect = (id: string) => {
@@ -74,8 +66,8 @@ const Quotes = () => {
   return (
     <div className={classes.wrapper}>
       <Card raised className={classes.header}>
-        <SearchAuthor authorList={authorList} setAuthorId={setAuthorId} />
-        <SearchMedia mediaList={mediaList} setMediaId={setMediaId} />
+        <SearchAuthor authorList={authorList} setAuthorId={onAuthorChange} />
+        <SearchMedia mediaList={mediaList} setMediaId={onMediaChange} />
         <Button
           className={classes.button}
           color="primary"
