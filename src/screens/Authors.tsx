@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import AuthorCard, { IAuthor } from "../components/AuthorCard";
+import AuthorCard from "../components/AuthorCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
+import {IAuthor} from "../model";
 
 const useStyles = makeStyles({
   wrapper: {

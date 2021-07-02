@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
-
 import customFetch from "../../utils/customFetch";
-import { IQuote } from "../../components/QuoteCard";
 import deleteResource from "../../utils/deleteResource";
+import { IQuote } from "../../model";
 
 const deleteQuote = async (_id: string) => {
   const response = await deleteResource("quote", _id);

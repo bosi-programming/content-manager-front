@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import queryString from "querystring";
-
 import customFetch from "../../utils/customFetch";
-import { IQuote } from "../../components/QuoteCard";
+import {IQuote} from "../../model";
 
 const fetchQuotes = async (params: any) => {
   const URLParams = queryString.stringify(params);

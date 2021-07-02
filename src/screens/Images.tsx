@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import ImageCard, { IImage } from "../components/ImageCard";
+import ImageCard  from "../components/ImageCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
+import {IImage} from "../model";
 
 const useStyles = makeStyles({
   header: {

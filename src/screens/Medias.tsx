@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
 import SearchAuthor from "../components/SearchAuthor";
-import MediaCard, { IMedia } from "../components/MediaCard";
+import MediaCard from "../components/MediaCard";
 import customFetch from "../utils/customFetch";
 import deleteResource from "../utils/deleteResource";
+import {IMedia} from "../model";
 
 const useStyles = makeStyles({
   header: {

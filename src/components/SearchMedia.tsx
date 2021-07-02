@@ -3,24 +3,7 @@ import { get } from "lodash";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-
-enum EnumMedia {
-  BOOK = "BOOK",
-  ARTICLE = "ARTICLE",
-  BLOGPOST = "BLOGPOST",
-  MOVIE = "MOVIE",
-  WEBVIDEO = "WEBVIDEO",
-}
-
-interface IMedia {
-  _id: string;
-  mediaName: string;
-  authorId: string;
-  publisher?: string;
-  dateOfPublication: Date;
-  typeOfMedia: EnumMedia;
-  link?: string;
-}
+import { IMedia } from "../model";
 
 interface SearchMediaProps {
   mediaList: IMedia[];

@@ -1,15 +1,9 @@
 import React from "react";
 import { get } from "lodash";
-import { TextField, Card } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-
-interface IAuthor {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  abreviation: string;
-}
+import { IAuthor } from "../model";
 
 interface SearchAuthorProps {
   authorList: IAuthor[];

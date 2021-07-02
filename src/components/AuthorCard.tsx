@@ -1,14 +1,7 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
-
 import ResourceCard from "./ResourceCard";
-
-export interface IAuthor {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  abreviation: string;
-}
+import {IAuthor} from "../model";
 
 interface QuoteCardProps {
   author: IAuthor,

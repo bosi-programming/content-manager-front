@@ -1,26 +1,8 @@
 import React from "react";
 import { startCase, lowerCase } from "lodash";
 import { Typography } from "@material-ui/core";
-
 import ResourceCard from "./ResourceCard";
-
-enum EnumMedia {
-  BOOK = "BOOK",
-  ARTICLE = "ARTICLE",
-  BLOGPOST = "BLOGPOST",
-  MOVIE = "MOVIE",
-  WEBVIDEO = "WEBVIDEO",
-}
-
-export interface IMedia {
-  _id: string;
-  mediaName: string;
-  authorId: string;
-  publisher?: string;
-  dateOfPublication: Date;
-  typeOfMedia: EnumMedia;
-  link?: string;
-}
+import {IMedia} from "../model";
 
 interface MediaCardProps {
   media: IMedia,

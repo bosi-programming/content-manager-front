@@ -1,8 +1,8 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
 import ResourceCard from "./ResourceCard";
+import { IImage } from "../model";
 
 const useStyles = makeStyles({
   content: {
@@ -19,20 +19,17 @@ const useStyles = makeStyles({
   },
 });
 
-export interface IImage {
-  _id: string;
-  userId: string;
-  imageName: string;
-  image: string;
-}
-
 interface ImageCardProps {
-  image: IImage,
-  handleDelete: (id: string) => void,
-  handleSelect:(id: string) => void,
+  image: IImage;
+  handleDelete: (id: string) => void;
+  handleSelect: (id: string) => void;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({ image, handleDelete, handleSelect }) => {
+const ImageCard: React.FC<ImageCardProps> = ({
+  image,
+  handleDelete,
+  handleSelect,
+}) => {
   const classes = useStyles();
 
   const imageNameBeggining = image.imageName.split(".")[0];

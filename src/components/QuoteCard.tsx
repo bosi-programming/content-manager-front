@@ -3,14 +3,7 @@ import { Typography } from "@material-ui/core";
 
 import ResourceCard from "./ResourceCard";
 import { useQuotesMutation } from "../requests/mutations/useQuotesMutation";
-
-export interface IQuote {
-  _id: string;
-  authorId: string;
-  mediaId: string;
-  where: string;
-  content: string;
-}
+import {IQuote} from "../model";
 
 interface QuoteCardProps {
   quote: IQuote;
