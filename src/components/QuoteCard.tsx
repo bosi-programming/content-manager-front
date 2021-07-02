@@ -2,6 +2,7 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 
 import ResourceCard from "./ResourceCard";
+import { useQuotesMutation } from "../requests/mutations/useQuotesMutation";
 
 export interface IQuote {
   _id: string;
@@ -11,16 +12,19 @@ export interface IQuote {
   content: string;
 }
 
-
 interface QuoteCardProps {
-  quote: IQuote,
-  handleDelete: (id: string) => void,
-  handleSelect:(id: string) => void,
+  quote: IQuote;
 }
 
-const QuoteCard: React.FC<QuoteCardProps> = ({ quote, handleDelete, handleSelect }) => {
+const QuoteCard: React.FC<QuoteCardProps> = ({ quote }) => {
+  const { deleteQuoteMutation } = useQuotesMutation();
+
+  const handleSelect = (id: string) => {
+    console.error("Implement id routes ", id);
+  };
+
   return (
-    <ResourceCard handleDelete={handleDelete} id={quote._id}>
+    <ResourceCard handleDelete={deleteQuoteMutation.mutate} id={quote._id}>
       <Typography variant="h4" onClick={() => handleSelect(quote._id)}>
         {quote.content}
       </Typography>

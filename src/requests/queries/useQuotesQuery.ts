@@ -24,8 +24,10 @@ export function useQuotesQuery() {
     page,
   };
 
-  const quotesQuery = useQuery<IQuote[], Error>(["quotes", "list", params], () =>
-    fetchQuotes(params)
+  const quotesQuery = useQuery<IQuote[], Error>(
+    ["quotes", "list", params],
+    () => fetchQuotes(params),
+    { staleTime: 60000 }
   );
 
   return {

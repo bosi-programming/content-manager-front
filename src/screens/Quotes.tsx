@@ -7,8 +7,8 @@ import SearchAuthor from "../components/SearchAuthor";
 import SearchMedia from "../components/SearchMedia";
 import QuoteCard from "../components/QuoteCard";
 import customFetch from "../utils/customFetch";
-import deleteResource from "../utils/deleteResource";
 import { useQuotesQuery } from "../requests/queries/useQuotesQuery";
+import Loader from "../components/Loader";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   wrapper: {
     backgroundColor: theme.palette.backgroundColor.main,
     width: "calc(100% - 4vw)",
-    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   quotesWrapper: {
     display: "flex",
@@ -37,6 +38,7 @@ const Quotes = () => {
   const classes = useStyles();
   const history = useHistory();
   const {
+    isLoading,
     props: { quotes, authorId },
     handlers: { onAuthorChange, onMediaChange },
   } = useQuotesQuery();
@@ -55,14 +57,6 @@ const Quotes = () => {
     fetchData();
   }, [authorId]);
 
-  const handleDelete = (id: string) => {
-    deleteResource("quote", id);
-  };
-
-  const handleSelect = (id: string) => {
-    console.error("Implement id routes ", id);
-  };
-
   return (
     <div className={classes.wrapper}>
       <Card raised className={classes.header}>
@@ -77,20 +71,17 @@ const Quotes = () => {
           Add new quote
         </Button>
       </Card>
-      <div className={classes.quotesWrapper}>
-        {quotes && quotes.length > 0 ? (
-          quotes.map((quote) => (
-            <QuoteCard
-              quote={quote}
-              handleSelect={handleSelect}
-              handleDelete={handleDelete}
-              key={quote._id}
-            />
-          ))
-        ) : (
-          <div />
-        )}
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={classes.quotesWrapper}>
+          {quotes && quotes.length > 0 ? (
+            quotes.map((quote) => <QuoteCard quote={quote} key={quote._id} />)
+          ) : (
+            <div />
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -84,8 +84,7 @@ const AddQuote = () => {
       content,
     };
 
-    const postRes = await customFetch(url, options, body);
-    console.log(postRes);
+    await customFetch(url, options, body);
     history.push("/quote");
   };
 
