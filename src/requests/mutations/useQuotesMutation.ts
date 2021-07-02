@@ -9,6 +9,18 @@ const deleteQuote = async (_id: string) => {
   return response.data;
 };
 
+const addQuote = async (body: Partial<IQuote>) => {
+  const url = "quote";
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await customFetch(url, options, body);
+  return response.data;
+};
+
 const updateQuote = async ({
   data,
   _id,
@@ -34,12 +46,16 @@ export function useQuotesMutation() {
   const deleteQuoteMutation = useMutation(deleteQuote, {
     onSuccess: () => invalidateAllStores(),
   });
+  const addQuoteMutation = useMutation(addQuote, {
+    onSuccess: () => invalidateAllStores(),
+  });
   const updateQuoteMutation = useMutation(updateQuote, {
     onSuccess: () => invalidateAllStores(),
   });
 
   return {
     deleteQuoteMutation,
+    addQuoteMutation,
     updateQuoteMutation,
   };
 }

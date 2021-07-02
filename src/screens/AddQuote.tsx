@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import SearchAuthor from "../components/SearchAuthor";
 import SearchMedia from "../components/SearchMedia";
 import customFetch from "../utils/customFetch";
+import { useQuotesMutation } from "../requests/mutations/useQuotesMutation";
 
 const useStyles = makeStyles({
   content: {
@@ -46,6 +47,7 @@ const useStyles = makeStyles({
 });
 
 const AddQuote = () => {
+  const { addQuoteMutation } = useQuotesMutation();
   const history = useHistory();
   const classes = useStyles();
   const [authorList, setAuthorList] = useState([]);
@@ -69,22 +71,13 @@ const AddQuote = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const url = "quote";
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     const body = {
       authorId,
       mediaId,
       where,
       content,
     };
-
-    await customFetch(url, options, body);
+    addQuoteMutation.mutate(body);
     history.push("/quote");
   };
 
