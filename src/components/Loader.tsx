@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { CirclesLoader, GearsLoader, ClockLoader } from "../assets/svg";
+import { CirclesLoader } from "../assets/svg";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -17,19 +17,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const chooseLoader = () => {
-  const loaders = [CirclesLoader, GearsLoader, ClockLoader];
-  const random = Math.floor(Math.random() * loaders.length);
-  return loaders[random]
-}
-
-const Loader = () => {
+const Loader:React.FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
       <img
         className={classes.image}
-        src={chooseLoader()}
+        src={CirclesLoader}
         alt="loading"
         height="300"
       />
